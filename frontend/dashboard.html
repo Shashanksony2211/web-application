@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+    }
+    .sidebar h4 {
+      margin-bottom: 20px;
+    }
+    .sidebar button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .main {
+      flex: 1;
+      padding: 30px;
+      background-color: #f8f9fa;
+    }
+    .form-section {
+      display: none;
+    }
+    .form-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h4>Dashboard</h4>
+    <button class="btn btn-light" onclick="showSection('products')">Products</button>
+    <button class="btn btn-light" onclick="showSection('roles')">Roles</button>
+    <button class="btn btn-light" onclick="showSection('orgmapping')">Org Mapping</button>
+    <button class="btn btn-danger mt-5" onclick="logout()">Logout</button>
+  </div>
+  <div class="main">
+    <div id="products" class="form-section">
+      <h3>Add Product</h3>
+      <form onsubmit="submitProduct(event)">
+        <input type="text" class="form-control mb-2" id="productname" placeholder="Product Name" required />
+        <input type="number" class="form-control mb-2" id="price" placeholder="Price" required />
+        <button class="btn btn-primary">Add Product</button>
+      </form>
+    </div>
+    <div id="roles" class="form-section">
+      <h3>Add Role</h3>
+      <form onsubmit="submitRole(event)">
+        <input type="text" class="form-control mb-2" id="roleName" placeholder="Role Name" required />
+        <button class="btn btn-primary">Add Role</button>
+      </form>
+    </div>
+    <div id="orgmapping" class="form-section">
+      <h3>Add Org Mapping</h3>
+      <form onsubmit="submitMapping(event)">
+        <input type="number" class="form-control mb-2" id="orgid" placeholder="Org ID" required />
+        <input type="number" class="form-control mb-2" id="accountid" placeholder="Account ID" required />
+        <button class="btn btn-primary">Add Mapping</button>
+      </form>
+    </div>
+    <div id="rolemapping" class="form-section">
+      <h3>Role Map</h3>
+      <form onsubmit="submitMapping(event)">
+        <input type="number" class="form-control mb-2" id="role" placeholder="Role" required />
+        <input type="number" class="form-control mb-2" id="user" placeholder="User" required />
+        <button class="btn btn-primary">Role Map</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    const backend = "http://127.0.0.1:8000";
+    const token = localStorage.getItem("token");
+
+    function showSection(id) {
+      document.querySelectorAll(".form-section").forEach(el => el.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+
+    async function submitProduct(e) {
+      e.preventDefault();
+      const productname = document.getElementById("productname").value;
+      const price = document.getElementById("price").value;
+
+      const res = await fetch(`${backend}/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ productname, price })
+      });
+      alert(JSON.stringify(await res.json()));
+    }
+
+    async function submitRole(e) {
+      e.preventDefault();
+      const roleName = document.getElementById("roleName").value;
+
+      const res = await fetch(`${backend}/roles`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ roleName })
+      });
+      alert(JSON.stringify(await res.json()));
+    }
+
+    async function submitMapping(e) {
+      e.preventDefault();
+      const orgid = document.getElementById("orgid").value;
+      const accountid = document.getElementById("accountid").value;
+
+      const res = await fetch(`${backend}/orgaccountmapping`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ orgid, accountid })
+      });
+      alert(JSON.stringify(await res.json()));
+    }
+
+    async function submitRoleMapping(e) {
+      e.preventDefault();
+      const orgid = document.getElementById("role").value;
+      const accountid = document.getElementById("user").value;
+
+      const res = await fetch(`${backend}/rolemap`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ role, user })
+      });
+      alert(JSON.stringify(await res.json()));
+    }
+
+    // Default view
+    showSection("products");
+  </script>
+</body>
+</html>
