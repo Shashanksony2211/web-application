@@ -1,49 +1,95 @@
-# a = [
-#     {"id": 1, "UserName": "test_user"},
-#     {"id": 2, "UserName": "test_user2"},
-#     {"id": 3, "UserName": "test_user3"},
-#     {"id": 4, "UserName": "test_user4"},
-#     {"id": 5, "UserName": "test_user5"},
-#     {"id": 6, "UserName": "test_user6"},
-#     {"id": 7, "UserName": "test_user7"},
-#     {"id": 8, "UserName": "test_user8"},
-#     {"id": 9, "UserName": "test_user9"},
-#     {"id": 10, "UserName": "test_user10"},
+# li = [
+#     "shashank",
+#     "kishan",
+#     "saurabh",
+#     "siddharth",
+#     "prashant",
+#     "sachin",
+#     "shubham",
+#     "ankit",
+#     "abhishek",
+#     "ankit",
+#     "abhishek",
 # ]
 
-sort = [(user["id"], -1) for user in a]
-print(sort)
-
-try:
-    num1 = int(input("Enter a number: "))
-    num2 = int(input("Enter a number to divide by: "))
-    result = num1 / num2
-    print("Result:", result)
-except ZeroDivisionError:
-    print("Error: You can't divide by zero!")
-except ValueError:
-    print("Error: Please enter valid numbers.")
+# for i in li:
+#     if i == "kishan":
+#         print(f"found", "You Searched :", i, "in list", "at index", li.index(i))
+#         break
+# else:
+#     print("not found", li)
 
 
-# class usercart:
-#     def __init__(self):
-#         self.cart = []
-#         for i in range(self.cart.append(0), 5):
-#             item = input("Enter the item you want to add: ")
-#             self.add_item(item)
+# def Calculater():
+#     productname = str(input("Enter ProductName :"))
+#     quantity = int(input("Enter quantity :"))
+#     price = int(input("Enter price :"))
+#     billamount = quantity * price
+#     discount_percent = 0
 
-#     def add_item(self, item):
-#         self.cart.append(item)
-#         if self.cart > 5:
-#             print("You have added 5 items to your cart.")
-#         else:
-#             print("You have added an item to your cart.")
+#     if billamount <= 1000:
+#         print(
+#             f"you are not eligible for discount because your billamount is {billamount}"
+#         )
+
+#     elif 1000 < billamount <= 5000:
+#         discount_percent = 20
+#         print(f"you are only eligible for 20% because your billamount is {billamount}")
+
+#     elif 5000 < billamount <= 10000:
+#         discount_percent = 35
+#         print(f"you are only eligible for 35% because your billamount is {billamount}")
+
+#     elif billamount > 10000:
+#         discount_percent = 50
+#         print(f"you are only eligible for 50% because your billamount is {billamount}")
+
+#     else:
+#         print("You are not eligible for discount")
+
+#     discount_amount = billamount * discount_percent / 100
+#     final_amount = billamount - discount_amount
+
+#     print(
+#         f"{productname} your Product Name, {billamount} is your bill amount",
+#         "Your Discount Amount is :",
+#         {discount_amount},
+#         "Your Final Amount is :",
+#         {final_amount},
+#     )
+
+#     return Calculater()
 
 
-# print("Welcome to the shopping cart!")
-# cart = usercart()
+# Calculater()
 
 
-a = ["a", "b", "c", "d", "e"]
+# def rajesh(n):
+#     if n == 0 or n == 1:
+#         return 1
+#     else:
+#         return n * rajesh(n - 1)
 
-print(len.a[1])
+
+# result = rajesh(n=5)
+
+# print(result)
+
+
+def rajesh(n):
+    if n < 10 or n < 0:
+        return "Your discount percent is 10%"
+
+    elif n >= 10 and n < 50:
+        return "Your discount percent is 50%"
+
+    else:
+        return "Your discount percent is 80%"
+
+    return rajesh
+
+
+price = int(input("Enter the price of the product: "))
+discount = rajesh(price)
+
+print(f"The discount on the product is: {discount}")

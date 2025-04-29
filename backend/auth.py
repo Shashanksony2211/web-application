@@ -6,6 +6,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from database import users_collection, Login_History_collection, roles_collection
 from models import SignUp, Login, LoginHistory
+from fastapi.responses import JSONResponse
 
 
 # JWT Settings
@@ -97,3 +98,34 @@ async def login(user: Login):
     )
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+# @router.post("/login")
+# async def login(user: Login):
+#     db_user = users_collection.find_one({"UserName": user.UserName})
+
+#     if not db_user or not bcrypt.verify(user.user_password, db_user["user_password"]):
+#         raise HTTPException(status_code=401, detail="Invalid credentials")
+
+#     access_token = create_token(db_user["UserName"])
+
+#     Login_History_collection.insert_one(
+#         {
+#             "Userid": str(db_user["_id"]),
+#             "UserName": db_user["UserName"],
+#             "LoginTime": datetime.utcnow(),
+#             "Status": "Success",
+#         }
+#     )
+
+#     response = JSONResponse(content={"message": "Login successful"})
+#     response.set_cookie(
+#         key="access_token",
+#         value=f"Bearer {access_token}",
+#         httponly=True,
+#         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+#         expires=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+#         samesite="lax",
+#         secure=False,  # Change to True when deploying on HTTPS
+#     )
+#     return response

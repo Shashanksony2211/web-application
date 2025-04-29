@@ -268,29 +268,29 @@ document.addEventListener("DOMContentLoaded", () => {
 //     .catch(err => console.error("Failed to load roles:", err));
 // });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const roleDropdown = document.getElementById("roleDropdown");
+// document.addEventListener("DOMContentLoaded", async () => {
+//   const roleDropdown = document.getElementById("roleDropdown");
 
-  try {
-    const response = await fetch("http://127.0.0.1:8000/roles");
-    const roles = await response.json();
+//   try {
+//     const response = await fetch("http://127.0.0.1:8000/roles");
+//     const roles = await response.json();
 
-    // Clear and add the default option
-    roleDropdown.innerHTML = `<option value="" disabled selected>Select Role</option>`;
+//     // Clear and add the default option
+//     roleDropdown.innerHTML = `<option value="" disabled selected>Select Role</option>`;
 
-    roles.forEach(role => {
-      const option = document.createElement("option");
-      option.value = role.id;
-      option.textContent = role.name;
-      roleDropdown.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Error fetching roles:", error);
-    alert("Failed to load roles. Please try again later.");
-  }
-});
+//     roles.forEach(role => {
+//       const option = document.createElement("option");
+//       option.value = role.id;
+//       option.textContent = role.name;
+//       roleDropdown.appendChild(option);
+//     });
+//   } catch (error) {
+//     console.error("Error fetching roles:", error);
+//     alert("Failed to load roles. Please try again later.");
+//   }
+// });
 
-document.addEventListener("DOMContentLoaded", async () => {
+ddocument.addEventListener("DOMContentLoaded", async () => {
   const roleDropdown = document.getElementById("roleDropdown");
   const userDropdown = document.getElementById("userDropdown");
 
@@ -298,23 +298,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch("http://127.0.0.1:8000/rolemap");
     const roles = await response.json();
 
-    // Clear and add the default option
     roleDropdown.innerHTML = `<option value="" disabled selected>Select Role</option>`;
     userDropdown.innerHTML = `<option value="" disabled selected>Select User</option>`;
 
     roles.forEach(role => {
-      const option = document.createElement("option");
-      option.value = role.id;
-      option.textContent = role.name;
-      userOption.textContent = role.name; 
-      option.textContent = role.name;
-      roleDropdown.appendChild(option);
-      userDropdown.appendChild(option);
+      const roleOption = document.createElement("option");
+      roleOption.value = role.id;
+      roleOption.textContent = role.name;
+
+      const userOption = document.createElement("option");
+      userOption.value = role.id;
+      userOption.textContent = role.name;
+
+      roleDropdown.appendChild(roleOption);
+      userDropdown.appendChild(userOption);
     });
   } catch (error) {
     console.error("Error fetching roles:", error);
     alert("Failed to load roles. Please try again later.");
   }
 });
+
+
 
 
